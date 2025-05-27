@@ -33,7 +33,11 @@ class Direccion {
             return false;
         }
     }
-
+public function getAll() {
+        // Conexión a la base de datos
+        $query = $this->conn->query("SELECT * FROM direccion");
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
     // Leer todas las direcciones
     public function read() {
         try {
