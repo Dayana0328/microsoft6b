@@ -5,8 +5,8 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 // En SexoController.php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/apple5a/config/database.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/apple5a/app/models/Sexo.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/microsoft6b/config/database.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/microsoft6b/app/models/Sexo.php';
 
 
 
@@ -113,11 +113,10 @@ public function update() {
     // Eliminar un sexo
     public function delete() {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if (isset($_POST['id'])) {
-            $this->sexo->id = $_POST['id'];
+        if (isset($_POST['idsexo'])) {
+            $this->sexo->idsexo = $_POST['idsexo'];
         if ($this->sexo->delete()) {
                 echo "Sexo borrado exitosamente";
-		die();
             header('Location: index.php?msg=deleted');
             exit;
         } else {
@@ -133,7 +132,9 @@ public function update() {
     die();  // Detener la ejecución para ver los mensajes
 
 }
-	public function api() {
+
+
+public function api() {
 
         while (ob_get_level()) {
             ob_end_clean();
@@ -144,6 +145,13 @@ public function update() {
         echo json_encode($sexos);
         exit;
     }
+
+
+
+
+
+
+
 }
 
 /// Manejo de la acción en la URL
@@ -162,10 +170,12 @@ if (isset($_GET['action'])) {
 
             $controller->delete();
             break;
- case 'api':
+
+         case 'api':
 
             $controller->api();
             break;
+
 
 
 

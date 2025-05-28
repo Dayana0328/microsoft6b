@@ -1,9 +1,10 @@
 <?php
+//base de datos configurada stalin francis
 class Database {
     private $host = "localhost";
-    private $db_name = "ingesoft";
-    private $username = "estudiante";
-    private $password = "estudiante1234";
+    private $db_name = "microsoft6b";
+    private $username = "microsoft6b";
+    private $password = "microsoft6b";
     private $conn;
 
     public function getConnection() {

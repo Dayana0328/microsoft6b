@@ -14,7 +14,8 @@ class Direccion {
         $this->conn = $db;
     }
 
-    // Crear una nueva dirección
+
+    // Crear un nuevo teléfono
     public function create() {
         try {
             $query = "INSERT INTO " . $this->table_name . " (idpersona, nombre)
@@ -33,12 +34,32 @@ class Direccion {
             return false;
         }
     }
-public function getAll() {
+
+
+    // Leer todos los teléfonos
+    public function read1() {
+        try {
+            $query = "SELECT * FROM " . "direccion1";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        } catch (PDOException $e) {
+            error_log("Error en read() para direccion: " . $e->getMessage());
+            return [];
+        }
+    }
+
+    public function getAll() {
         // Conexión a la base de datos
         $query = $this->conn->query("SELECT * FROM direccion");
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
-    // Leer todas las direcciones
+
+
+
+    // Leer todos los teléfonos
     public function read() {
         try {
             $query = "SELECT * FROM " . $this->table_name;
@@ -53,7 +74,7 @@ public function getAll() {
         }
     }
 
-    // Leer una sola dirección por ID
+    // Leer un solo teléfono por ID
     public function readOne() {
         try {
             $query = "SELECT * FROM " . $this->table_name . " WHERE iddireccion = :iddireccion LIMIT 1";
@@ -69,7 +90,7 @@ public function getAll() {
         }
     }
 
-    // Actualizar una dirección
+    // Actualizar un teléfono
     public function update() {
         try {
             $query = "UPDATE " . $this->table_name . " SET
@@ -92,20 +113,20 @@ public function getAll() {
         }
     }
 
-    // Eliminar una dirección
+    // Eliminar un teléfono
     public function delete() {
         try {
             if (empty($this->iddireccion)) {
                 return false;
             }
-            error_log("Intentando eliminar la dirección con ID: " . $this->iddireccion);
+            error_log("Intentando eliminar el teléfono con ID: " . $this->iddireccion);
 
             $query = "DELETE FROM " . $this->table_name . " WHERE iddireccion = :iddireccion";
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(":iddireccion", $this->iddireccion, PDO::PARAM_INT);
 
             if ($stmt->execute()) {
-                error_log("Dirección con ID " . $this->iddireccion . " eliminada correctamente.");
+                error_log("Teléfono con ID " . $this->iddireccion . " eliminado correctamente.");
                 return true;
             } else {
                 error_log("Error en delete() para direccion: La consulta no se ejecutó correctamente.");
@@ -118,7 +139,7 @@ public function getAll() {
         }
     }
 
-    // Leer todas las direcciones asociadas a una persona específica
+    // Leer todos los teléfonos asociados a una persona específica
     public function readByPersona($idpersona) {
         try {
             $query = "SELECT * FROM " . $this->table_name . " WHERE idpersona = :idpersona";
